@@ -14,15 +14,26 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     });
   }
 
+  // refreshToken를 얻기 위한 코드
+  authorizationParams(): { [key: string]: string } {
+    return {
+      access_type: 'offline',
+      prompt: 'select_account',
+    };
+  }
+
   async validate(accessToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) {
+    console.log('google accessToken: ' + accessToken);
+    console.log('google refreshToken: ' + refreshToken);
+    console.log('google profile: ' + profile);
     try {
-      const { name, emails, id, photos } = profile;
+      const { emails, id, photos, displayName } = profile;
       const user = {
-        socialType: 'google',
-        socialId: id,
-        name: name,
         email: emails[0].value,
+        userName: displayName,
         profileImage: photos[0].value,
+        socialId: id,
+        socialType: 'google',
         accessToken,
         refreshToken,
       };
