@@ -1,7 +1,6 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
-import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { GoogleRequestDto } from './dtos/auth-google.dto';
 import { KakaoRequestDto } from './dtos/auth-kakao.dto';

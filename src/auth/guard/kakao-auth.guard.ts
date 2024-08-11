@@ -1,10 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Error } from 'src/exception/error';
 
 @Injectable()
 export class KakaoAuthGuard extends AuthGuard('kakao') {
-  async canActivate(context: any): Promise<boolean> {
-    const result = (await super.canActivate(context)) as boolean;
-    return result;
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    try {
+      const result = (await super.canActivate(context)) as boolean;
+
+      if (!result) {
+        throw new UnauthorizedException(Error.AUTH.OAUTH_FAILED);
+      }
+
+      return result;
+    } catch (error) {
+      throw new UnauthorizedException(Error.AUTH.GENERAL_OAUTH_FAILED);
+    }
   }
 }
