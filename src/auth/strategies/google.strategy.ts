@@ -23,9 +23,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   }
 
   async validate(accessToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) {
-    console.log('google accessToken: ' + accessToken);
-    console.log('google refreshToken: ' + refreshToken);
-    console.log('google profile: ' + profile);
     try {
       const { emails, id, photos, displayName } = profile;
       const user = {
@@ -33,7 +30,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         userName: displayName,
         profileImage: photos[0].value,
         socialId: id,
-        socialType: 'google',
+        socialType: 'GOOGLE',
         accessToken,
         refreshToken,
       };

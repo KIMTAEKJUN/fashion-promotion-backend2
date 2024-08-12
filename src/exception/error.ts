@@ -36,6 +36,10 @@ export const Error = {
       code: 401,
       message: '인증되지 않은 사용자입니다.',
     },
+    NO_TOKEN: {
+      code: 401,
+      message: '토큰이 제공되지 않았습니다.',
+    },
     OAUTH_FAILED: {
       code: 401,
       message: 'OAuth 인증에 실패했습니다.',

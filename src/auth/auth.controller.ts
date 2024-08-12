@@ -1,18 +1,13 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
-import { GoogleRequestDto } from './dtos/auth-google.dto';
-import { KakaoRequestDto } from './dtos/auth-kakao.dto';
+import { GoogleRequestDto, KakaoRequestDto } from './dtos/auth.dto';
 import { GoogleAuthGuard } from './guard/google-auth.guard';
 import { KakaoAuthGuard } from './guard/kakao-auth.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly configService: ConfigService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Get('login/google')
   @UseGuards(GoogleAuthGuard)
@@ -21,7 +16,7 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
   async googleLoginCallback(@Req() req: GoogleRequestDto) {
-    return this.authService.googleLogin(req);
+    return this.authService.validateGoogleUser(req);
   }
 
   // TODO: 수정 필요
@@ -32,6 +27,6 @@ export class AuthController {
   @Get('kakao/callback')
   @UseGuards(KakaoAuthGuard)
   async kakaoLoginCallback(@Req() req: KakaoRequestDto) {
-    return this.authService.kakaoLogin(req);
+    return this.authService.validateKakaoUser(req);
   }
 }

@@ -10,15 +10,19 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
       clientID: configService.get('auth.kakao.clientId'),
       clientSecret: configService.get('auth.kakao.clientSecret'),
       callbackURL: configService.get('auth.kakao.callbackURL'),
-      scope: ['account_email', 'profile_nickname'],
+      scope: ['account_email', 'profile_nickname', 'profile_image'],
     });
   }
+
   async validate(accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) {
     try {
       const { _json } = profile;
       const user = {
         kakao: {
           ..._json,
+          socialType: 'KAKAO',
+          accessToken,
+          refreshToken,
         },
       };
       done(null, user);

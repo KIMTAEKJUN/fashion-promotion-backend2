@@ -5,7 +5,7 @@ import { UserModule } from '../user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
-import { User } from 'src/user/entities/user.entity';
+import { User } from 'src/user/entities/users.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { KakaoStrategy } from './strategies/kakao.strategy';
 import { GoogleStrategy } from './strategies/google.strategy';
