@@ -1,8 +1,8 @@
 import { IsOptional, IsString, MaxLength } from 'class-validator';
 
 enum Role {
-  USER = 'user',
-  ADMIN = 'admin',
+  USER = 'USER',
+  ADMIN = 'ADMIN',
 }
 
 export class UserResponseDto {
