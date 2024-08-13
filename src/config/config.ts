@@ -23,4 +23,9 @@ export default () => ({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
   },
+  setting: {
+    clientURL: process.env.CLIENT_URL || 'http://localhost:3001',
+    serverURL: process.env.SERVER_URL || 'http://localhost:3000',
+    port: parseInt(process.env.PORT, 10) || 3001,
+  },
 });
